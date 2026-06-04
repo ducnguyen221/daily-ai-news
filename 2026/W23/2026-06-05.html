@@ -268,24 +268,35 @@
 <script>
 (function(){
   var synth=window.speechSynthesis; if(!synth) return;
-  function viVoice(){var vs=synth.getVoices()||[];return vs.find(function(v){return /vi[-_]?VN/i.test(v.lang);})||vs.find(function(v){return /viet/i.test(v.name);})||null;}
-  function speak(t){if(!t)return;synth.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='vi-VN';var v=viVoice();if(v)u.voice=v;synth.speak(u);}
+  var chosen=null;
+  function isVi(v){return /vi[-_]?VN/i.test(v.lang)||/viet/i.test(v.name);}
+  function rank(v){var s=0;if(/natural|neural/i.test(v.name))s+=4;if(/google/i.test(v.name))s+=3;if(/online/i.test(v.name))s+=2;return s;}
+  function speak(t){if(!t)return;synth.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='vi-VN';if(chosen)u.voice=chosen;u.rate=0.98;synth.speak(u);}
   function stop(){synth.cancel();}
   function allText(){var p=[];var tl=document.querySelector('.tldr');if(tl)p.push(tl.innerText);document.querySelectorAll('.card .sum').forEach(function(e){p.push(e.innerText);});return p.join('. ');}
-  var css='.tts-bar{position:sticky;top:0;z-index:50;display:flex;gap:8px;align-items:center;justify-content:center;padding:10px;background:rgba(13,20,36,.93);backdrop-filter:blur(6px);border-bottom:1px solid #2a3347;flex-wrap:wrap}.tts-btn{background:#6366f1;color:#fff;border:0;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer}.tts-btn.stop{background:#334155}.tts-note{color:#94a3b8;font-size:12px}.readbtn{margin-left:8px;background:#1e293b;color:#a5b4fc;border:1px solid #334155;border-radius:6px;padding:2px 10px;font-size:12px;cursor:pointer}.readbtn:hover{background:#334155}';
+  function refresh(){
+    var sel=document.getElementById('voicePick'); if(!sel) return;
+    var all=synth.getVoices()||[];
+    var vi=all.filter(isVi).sort(function(a,b){return rank(b)-rank(a);});
+    var list=vi.length?vi:all;
+    sel.innerHTML='';
+    list.forEach(function(v){var o=document.createElement('option');o.value=v.name;o.textContent=(isVi(v)?'🟢 ':'')+v.name+' — '+v.lang;sel.appendChild(o);});
+    if(!chosen||list.indexOf(chosen)<0){chosen=vi[0]||null;}
+    if(chosen)sel.value=chosen.name;
+    var warn=document.getElementById('voiceWarn'); if(warn) warn.style.display=vi.length?'none':'inline';
+    sel.onchange=function(){var m=all.filter(function(v){return v.name===sel.value;});chosen=m[0]||null;};
+  }
+  var css='.tts-bar{position:sticky;top:0;z-index:50;display:flex;gap:8px;align-items:center;justify-content:center;padding:10px;background:rgba(13,20,36,.93);backdrop-filter:blur(6px);border-bottom:1px solid #2a3347;flex-wrap:wrap}.tts-btn{background:#6366f1;color:#fff;border:0;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer}.tts-btn.stop{background:#334155}.tts-note{color:#94a3b8;font-size:12px}.tts-note select{background:#1b2230;color:#e6e9ef;border:1px solid #334155;border-radius:6px;padding:3px 6px;font-size:12px;max-width:240px}.tts-warn{color:#fca5a5;font-size:12px;display:none}.readbtn{margin-left:8px;background:#1e293b;color:#a5b4fc;border:1px solid #334155;border-radius:6px;padding:2px 10px;font-size:12px;cursor:pointer}.readbtn:hover{background:#334155}';
   function init(){
     var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
     var bar=document.createElement('div');bar.className='tts-bar';
-    bar.innerHTML='<button class="tts-btn" id="readAll">🔊 Đọc tóm tắt</button><button class="tts-btn stop" id="readStop">⏹ Dừng</button><span class="tts-note">Đọc tiếng Việt bằng giọng trình duyệt</span>';
+    bar.innerHTML='<button class="tts-btn" id="readAll">🔊 Đọc tóm tắt</button><button class="tts-btn stop" id="readStop">⏹ Dừng</button><label class="tts-note">Giọng: <select id="voicePick"></select></label><span id="voiceWarn" class="tts-warn">⚠ Máy chưa có giọng tiếng Việt — mở bằng Edge hoặc cài giọng VN</span>';
     document.body.insertBefore(bar,document.body.firstChild);
     document.getElementById('readAll').addEventListener('click',function(){speak(allText());});
     document.getElementById('readStop').addEventListener('click',stop);
-    document.querySelectorAll('.card').forEach(function(c){
-      var sm=c.querySelector('.sum'); if(!sm) return;
-      var b=document.createElement('button'); b.className='readbtn'; b.type='button'; b.textContent='▶ Đọc';
-      b.addEventListener('click',function(){speak(sm.innerText);});
-      var anchor=c.querySelector('.tag'); if(anchor&&anchor.parentNode){anchor.parentNode.appendChild(b);} else {sm.parentNode.appendChild(b);}
-    });
+    document.querySelectorAll('.card').forEach(function(c){var sm=c.querySelector('.sum');if(!sm)return;var b=document.createElement('button');b.className='readbtn';b.type='button';b.textContent='▶ Đọc';b.addEventListener('click',function(){speak(sm.innerText);});var a=c.querySelector('.tag');if(a&&a.parentNode){a.parentNode.appendChild(b);}else{sm.parentNode.appendChild(b);}});
+    refresh(); setTimeout(refresh,400);
+    if(typeof synth.onvoiceschanged!=='undefined'){synth.onvoiceschanged=refresh;}
   }
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
 })();
