@@ -17,14 +17,14 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-ap
 background-image:linear-gradient(rgba(0,240,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.035) 1px,transparent 1px);
 background-size:42px 42px}
 .wrap{max-width:980px;margin:0 auto;padding:20px 16px 60px}
-.hdr{position:sticky;top:0;z-index:60;background:rgba(5,8,14,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);padding:10px 18px;border-radius:0 0 12px 12px;margin:0}
+.hdr{position:sticky;top:8px;z-index:60;background:rgba(6,9,16,.92);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);padding:10px 18px;border-radius:12px;margin:10px 0 4px}
 .hdr-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .hdr-ctrls{display:flex;gap:8px;align-items:center}
 .ctrl{font-family:inherit;font-size:.85rem;color:#cbd5e1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:8px 14px;cursor:pointer;text-decoration:none}
 .ctrl:hover{color:#00f0ff;border-color:rgba(0,240,255,.4)}
 .ctrl-acc{color:#04060a;font-weight:700;background:linear-gradient(90deg,#00f0ff,#39ff7a);border:0}
 .ctrl-ic{width:36px;height:36px;display:grid;place-items:center;padding:0}
-.brand-sub{display:block;color:#94a3b8;font-size:.72rem}
+.brand-sub{display:inline;color:#94a3b8;font-size:.78rem;margin-left:4px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .brand-name{font-size:1.3rem;font-weight:600;letter-spacing:.5px}
 .brand-name b{color:var(--accent)}
@@ -74,21 +74,23 @@ footer a{color:var(--accent);text-decoration:none}
 .fact{font-family:Consolas,monospace;font-size:.76rem;color:#a5f3fc;border:1px solid rgba(0,240,255,.25);border-radius:8px;padding:4px 10px;background:rgba(0,240,255,.05)}
 .fact b{color:#67e8f9;margin-right:6px;font-weight:700}
 .deep{margin-top:12px;color:#b6c2d6;font-size:.92rem;line-height:1.7}
-.brand-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border:1px solid rgba(0,240,255,.4);border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.22),rgba(189,0,255,.06) 55%,rgba(4,6,10,.95) 78%);box-shadow:0 0 18px rgba(0,240,255,.35);animation:brandPulse 3.2s ease-in-out infinite;transition:transform .45s cubic-bezier(.175,.885,.32,1.275)}.brand:hover .brand-mark{transform:rotate(180deg) scale(1.06);border-color:#00f0ff}@keyframes brandPulse{0%,100%{box-shadow:0 0 10px rgba(0,240,255,.22)}50%{box-shadow:0 0 26px rgba(0,240,255,.55)}}</style>
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border:1px solid rgba(0,240,255,.4);border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.22),rgba(189,0,255,.06) 55%,rgba(4,6,10,.95) 78%);box-shadow:0 0 18px rgba(0,240,255,.35);animation:brandPulse 3.2s ease-in-out infinite;transition:transform .45s cubic-bezier(.175,.885,.32,1.275)}.brand:hover .brand-mark{transform:rotate(180deg) scale(1.06);border-color:#00f0ff}@keyframes brandPulse{0%,100%{box-shadow:0 0 10px rgba(0,240,255,.22)}50%{box-shadow:0 0 26px rgba(0,240,255,.55)}}.hdr-row2{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:8px}.hdr-row2 .toc{flex:1 1 auto;padding:0}.vdiv{width:1px;height:22px;background:rgba(255,255,255,.16);flex:0 0 auto}@media (max-width:767px){.hdr-row2 .toc,.vdiv{display:none}.hdr{padding:8px 12px}.brand-mark{width:36px;height:36px}.brand-sub{font-size:.7rem}.hdr-ctrls{width:100%}.hdr-ctrls .ctrl{flex:1 1 auto;text-align:center;justify-content:center}.hdr-ctrls .ctrl-ic{flex:0 0 44px}}</style>
 </head>
 <body>
 <div class="wrap">
 <header class="hdr" id="top">
 <div class="hdr-row">
-<a class="brand" href="../../index.html" title="Về trang chính AI News"><span class="brand-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 8h2.5a1.5 1.5 0 0 1 1.5 1.5V17a2 2 0 0 1-2 2"/><path d="M7 9h6M7 12.5h6M7 16h4"/></svg></span><span class="brand-name">AI <b>News</b><span class="brand-sub">Tuần W24 · 08/06 - 14/06/2026</span></span></a>
+<a class="brand" href="../../index.html" title="Về trang chính AI News"><span class="brand-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2z"/><path d="M16 8h2.5a1.5 1.5 0 0 1 1.5 1.5V17a2 2 0 0 1-2 2"/><path d="M7 9h6M7 12.5h6M7 16h4"/></svg></span><span class="brand-name">AI <b>News</b></span><span class="brand-sub">Tuần W24 · 08/06 - 14/06/2026</span></a>
+</div>
+<div class="hdr-row2">
+<nav class="toc"><a href="#recap">🎬 Recap</a><a href="#sec-1">🚀 Mô hình</a><a href="#sec-2">🛠️ Công cụ</a><a href="#sec-3">🔬 Nghiên cứu</a><a href="#sec-4">📈 Trend</a><a href="#sec-5">🏢 Ngành</a></nav>
+<span class="vdiv"></span>
 <div class="hdr-ctrls">
-<button id="readAll" class="ctrl ctrl-acc">🔊 Đọc tóm tắt · Duc Nguyen</button>
+<button id="readAll" class="ctrl ctrl-acc">🔊 Đọc tóm tắt</button>
 <button id="readStop" class="ctrl">⏹ Dừng</button>
 <a class="ctrl ctrl-ic" href="../../index.html" title="Quay lại AI News">←</a>
-<a class="ctrl ctrl-ic" href="https://ducnguyen.vn" target="_blank" rel="noopener" title="Website ducnguyen.vn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></a>
 </div>
 </div>
-<nav class="toc"><a href="#recap">🎬 Recap</a><a href="#sec-1">🚀 Mô hình</a><a href="#sec-2">🛠️ Công cụ</a><a href="#sec-3">🔬 Nghiên cứu</a><a href="#sec-4">📈 Trend</a><a href="#sec-5">🏢 Ngành</a></nav>
 </header>
 
 <div id="recap"></div>
